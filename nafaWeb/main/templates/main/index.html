@@ -1,0 +1,342 @@
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}" />
+
+<div
+  id="carouselExampleCaptions"
+  class="carousel slide"
+  data-bs-ride="carousel"
+>
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="1"
+      aria-label="Slide 2"
+    ></button>
+    <button
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide-to="2"
+      aria-label="Slide 3"
+    ></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{{homeImageOne.image}}" class="d-block w-100" alt="..." />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{homeImageOne.heading}}</h5>
+        <p>{{homeImageOne.description}}</p>
+        <div class="slider-btn">
+          <button class="btn btn-1">Get started</button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{homeImageTwo.image}}" class="d-block w-100" alt="..." />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{homeImageTwo.heading}}</h5>
+        <p>{{homeImageTwo.description}}</p>
+        <div class="slider-btn">
+          <button class="btn btn-1">Get started</button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{homeImageThree.image}}" class="d-block w-100" alt="..." />
+      <div class="carousel-caption d-none d-md-block">
+        <h5>{{homeImageThree.heading}}</h5>
+        <p>{{homeImageThree.heading}}</p>
+        <div class="slider-btn">
+          <button class="btn btn-1">Get started</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExampleCaptions"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{% load static%}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto+Slab:400,700"
+/>
+<link rel="stylesheet" href="{% static 'css/aboutCard.css' %}" />
+
+<div class="row row-big-card">
+  <div class="cont">
+    <a href="#" class="card-link">
+      <div class="card-img">
+        <img src="{{editAbout.image}}" class="img-fluid" alt="User Pic" />
+      </div>
+      <div class="card-inner">
+        <h3>{{editAbout.heading}}</h3>
+        <h4>{{editAbout.sub_heading}}</h4>
+        <div class="inner-text">
+          <p>{{editAbout.sub_description}}</p>
+        </div>
+        {% comment %} Should go to about page {% endcomment %}
+        <span class="cta-card"> <a href="#">Read on</a></span> 
+      </div>
+    </a>
+  </div>
+</div>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/scholarship.css' %}" />
+
+<section class="wrapper">
+  <div class="container-fostrap">
+    <div>
+      <h1 class="heading">Scholarships Available This Term</h1>
+    </div>
+
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-4">
+            <div class="card">
+              <a class="img-card" href="">
+                {%  if scholarshipOne %}
+                <img src="{{scholarshipOne.image}}" />
+                {% else %}
+                  <h3 class="lead">No Scholarships Added</h3>
+                  {% endif %}
+              </a>
+              <div class="card-content">
+                <h4 class="card-title">
+                  <a
+                    href="{% url 'main:scholarship_details' scholarshipOne.id %}">
+                    {{scholarshipOne.name}}
+                  </a>
+                </h4>
+                <p class="card-description">
+                  <a> {{scholarshipOne.description}} </a>
+                </p>
+              </div>
+              <div class="card-read-more">
+                <a
+                  href="{% url 'main:scholarship_details' scholarshipOne.id %}"
+                  class="btn btn-link btn-block"
+                >
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-4">
+            <div class="card">
+              <a class="img-card" href="">
+                <img src="{{scholarshipTwo.image}}" />
+              </a>
+              <div class="card-content">
+                <h4 class="card-title">
+                  <a
+                    href="{% url 'main:scholarship_details' scholarshipTwo.id %}"
+                  >
+                    {{scholarshipTwo.name}}
+                  </a>
+                </h4>
+                <p class="card-description">
+                  <a> {{scholarshipTwo.description}} </a>
+                </p>
+              </div>
+              <div class="card-read-more">
+                <a
+                  href="{% url 'main:scholarship_details' scholarshipTwo.id %}"
+                  class="btn btn-link btn-block"
+                >
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-4">
+            <div class="card">
+              <a class="img-card" href="">
+                <img src="{{scholarshipThree.image}}" />
+              </a>
+              <div class="card-content">
+                <h4 class="card-title">
+                  <a
+                    href="{% url 'main:scholarship_details' scholarshipThree.id %}"
+                  >
+                    {{scholarshipThree.name}}
+                  </a>
+                </h4>
+                <p class="card-description">
+                  <a> {{scholarshipThree.description}} </a>
+                </p>
+              </div>
+              <div class="card-read-more">
+                <a
+                  href="{% url 'main:scholarship_details' scholarshipThree.id %}"
+                  class="btn btn-link btn-block"
+                >
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+          <br/> 
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="text-center pt-lg-5 pt-3">
+        <a href="{% url 'main:scholarship_home' %}" class="btn btn-primary">
+          View All Scholarship
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/ti-icons@0.1.2/css/themify-icons.css"
+/>
+<div class="events_area bg-dark">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <div class="main_title">
+          <h2 class="mb-3 text-white">Upcoming Events</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="single_event position-relative">
+          <div class="event_thumb">
+            <img src="{{eventOne.image}}" width="80%" />
+          </div>
+          <div class="event_details">
+            <div class="d-flex mb-4">
+              <div class="date"><span>{{ eventOne.date }}</span></div>
+              <div class="time-location">
+                <p><span class="ti-time mr-2"></span> {{ eventOne.time }}</p>
+                <p>
+                  <span class="ti-location-pin mr-2"></span>
+                  {{eventOne.location}}
+                </p>
+              </div>
+            </div>
+            <p>
+              <a> {{ eventOne.name }} </a>
+            </p>
+            <a
+              href="{% url 'event:event_details' eventOne.id %}"
+              class="btn btn-primary rounded-0 mt-3"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6">
+        <div class="single_event position-relative">
+          <div class="event_thumb">
+            <img src="{{eventTwo.image}}" width="80%" />
+          </div>
+          <div class="event_details">
+            <div class="d-flex mb-4">
+              <div class="date"><span>{{ eventTwo.date }}</span></div>
+              <div class="time-location">
+                <p><span class="ti-time mr-2"></span> {{ eventTwo.time }}</p>
+                <p>
+                  <span class="ti-location-pin mr-2"></span>
+                  {{eventTwo.location}}
+                </p>
+              </div>
+            </div>
+            <p>
+              <a> {{ eventTwo.name }} </a>
+            </p>
+            <a
+              href="{% url 'event:event_details' eventTwo.id %}"
+              class="btn btn-primary rounded-0 mt-3"
+              >View Details</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="text-center pt-lg-5 pt-3">
+          <a href="{% url 'event:event_home' %}" class="btn btn-primary">
+            View All Event
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/team.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+/>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3 mt-4 mb-4">
+      <h2 class="text-center">Our Team</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for team in editOurTeam %}
+    <div class="col-md-4">
+      <div class="card-box text-center">
+        <div class="user-pic">
+          <img src="{{team.image}}" class="img-fluid" alt="User Pic" />
+        </div>
+        <h4>{{team.name}}</h4>
+        <h6>{{team.position}}</h6>
+        <hr />
+        <p>{{team.description}}</p>
+        <hr />
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %} {% block content %} {% load static%}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto+Slab:400,700"
+/>
+
+<link rel="stylesheet" href="{% static 'css/aboutCard.css' %}" />
+
+<div class="row row-big-card">
+  <div class="cont">
+    <a href="#" class="card-link">
+      <div class="card-img">
+        <div
+          style="
+            background-image:  url('{{event.image}}') "
+        ></div>
+      </div>
+      <div class="card-inner">
+        <h3>{{event.name}}</h3>
+        <h4>There's something magical about those golden hues</h4>
+        <div class="inner-text">
+          <p>
+            {{event.description}}
+          </p>
+        </div>
+        
+        <span class="cta-card">
+           <a href="">
+          </a> 
+        </span>
+        <br/>
+        {% if request.user.is_superuser%}
+          <div style="display:flex;flex-direction:row">
+
+            <a style="text-decoration:none; border: 1px solid black;border-radius:10%;padding:1.8%;color:black;background-color:gold;margin-right:1%"  href="{% url 'event:edit_event' event.id %}">
+              Edit
+            </a>
+          </span>
+          
+            <a style="text-decoration:none;border:1px solid black;border-radius:10%;padding:1.8%;color:white;background-color:red" href="{% url 'event:delete_event' event.id %}">
+              Delete
+            </a>
+          </div>
+          
+          <br/>
+          <span >
+            <a style="text-decoration:none; border: 1px solid black;border-radius:4%;padding:2%;color:white;background-color:green;margin-right:1%" href="{% url 'event:get_all_users_in_event' event.id %}">
+              View all RSVPs
+            </a>
+        {% endif %}
+        <br/>
+        
+      </div>
+    </a>
+  </div>
+</div>
+
+
+{% endblock %}

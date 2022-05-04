@@ -1,0 +1,82 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/scholarship.css' %}" />
+    <section class="wrapper">
+        <div class="container-fostrap">
+            {% if request.user.is_authenticated %}
+                {% if user.membership %}
+                    <h3>You are currently enrolled in {{user.membership.name}} membership</h3>
+                    <div class="content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="card">
+                                        <a class="img-card" href="">
+                                            <img src= "{{ user.membership.image }}">
+                                        </a>
+                                        <div class="card-content">
+                                            <h4 class="card-title">
+                                                <a href="{% url 'main:membership_details' user.membership.id %}">{{ user.membership.name }}</a>
+                                            </h4>
+                                            <p class="card-description">
+                                                <a >{{ user.membership.description }}</a>
+                                                <a >${{ user.membership.amount }}</a>
+                                            </p>
+                                        </div>
+                                        <div class="card-read-more">
+                                            <a href="{% url 'main:membership_details' user.membership.id %}"
+                                               class="btn btn-link btn-block">Proceed...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div>
+                    <h1 class="heading">Our Membership!</h1>
+                </div>
+                <div class="content">
+                    <div class="container">
+                        <div class="row">
+                            {% for membership in memberships %}
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="card">
+                                        <a class="img-card" href="">
+                                            <img src= "{{ membership.image }}">
+                                        </a>
+                                        <div class="card-content">
+                                            <h4 class="card-title">
+                                                <a href="{% url 'main:membership_details' membership.id %}">{{ membership.name }}</a>
+                                            </h4>
+                                            <p class="card-description">
+                                                <a >{{ membership.description }}</a>
+                                                <a >${{ membership.amount }}</a>
+                                            </p>
+                                        </div>
+                                        <div class="card-read-more">
+                                            <a href="{% url 'main:membership_details' membership.id %}"
+                                               class="btn btn-link btn-block">Proceed...</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div>
+                    <h5 class="heading">
+                    You have to <a href= "{% url 'accounts:register_account' %}">register</a>/<a href= "{% url 'accounts:login_user' %}">login</a> to be able to take a look at our memberships
+                </h5>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% if request.user.is_superuser %}
+    <a href="{% url 'main:add_membership' %}" class="btn btn-success ">
+    Add Membership</a
+    >
+{% endif %}
+{% endblock %}

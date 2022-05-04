@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container">
+  <form action="" method="post">
+    {% csrf_token %} {{form|crispy}}
+    <br />
+<<<<<<< HEAD
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <input
+      type="submit"
+      class="btn orangeBtn btn-danger"
+      value="{{ label }} Event"
+    />
+  </form>
+</div>
+=======
+    <input type="submit" class="btn btn-danger" value="{{ label }} Event">
+>>>>>>> 10f535df7d36d1884501f3ff3fca4d14ddf021a9
+
+{% endblock %}

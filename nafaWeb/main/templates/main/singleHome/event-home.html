@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/ti-icons@0.1.2/css/themify-icons.css"/>
+    <div class="events_area bg-dark">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="main_title">
+                        <h2 class="mb-3 text-white">Upcoming Events</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for event in events %}
+                    <div class="col-lg-6 col-md-6">
+                        <div class="single_event position-relative">
+                            <div class="event_thumb">
+                                <img src="{{ event.image }}" width="80%" />
+                            </div>
+                            <div class="event_details">
+                                <div class="d-flex mb-4">
+                                    <div class="date">
+                                        <span>{{ event.date }}</span>
+                                    </div>
+                                    <div class="time-location">
+                                        <p>
+                                            <span class="ti-time mr-2"></span> {{ event.time }}
+                                    </p>
+                                    <p>
+                                        <span class="ti-location-pin mr-2"></span> {{ event.location
+                                    }}
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            <a>{{ event.name }}</a>
+                        </p>
+                    <a href="{% url 'event:event_details' event.id %}"
+                       class="btn btn-primary rounded-0 mt-3">View Details</a
+                    >
+                <a class="btn btn-warning"
+                   style="color: white; height: 50px"
+                   href="{% url 'event:user_reg_event' event.id request.user.id %}">Add Event</a
+                >
+            </div>
+        </div>
+<<<<<<< HEAD
+      </div>
+      {% endfor %}
+
+      {% if request.user.is_superuser%}
+<a href="{% url 'main:add_event' %}" class="btn btn-success"> Add Event</a>
+{%endif%}
+=======
+>>>>>>> 10f535df7d36d1884501f3ff3fca4d14ddf021a9
+    </div>
+{% endfor %}
+</div>
+</div>
+</div>
+<<<<<<< HEAD
+ {% endblock %}
+=======
+{% if request.user.is_superuser %}
+    <a href="{% url 'event:add_event' %}" class="btn btn-success">Add Event</a>
+{% endif %}
+{% endblock %}
+>>>>>>> 10f535df7d36d1884501f3ff3fca4d14ddf021a9

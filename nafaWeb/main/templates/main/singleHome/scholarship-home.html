@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/scholarship.css' %}" />
+
+<section class="wrapper">
+  <div class="container-fostrap">
+    <div>
+      <h1 class="heading">Scholarships Available This Term</h1>
+    </div>
+
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          {% for scholarship in scholarships %}
+          <div class="col-xs-12 col-sm-4">
+            <div class="card">
+              <a class="img-card" href="">
+                <img src="{{scholarship.image}}" />
+              </a>
+              <div class="card-content">
+                <h4 class="card-title">
+                  <a href="{% url 'main:scholarship_details' scholarship.id %}">
+                    {{scholarship.name}}
+                  </a>
+                </h4>
+                <p class="card-description">
+                  <a> {{scholarship.description}} </a>
+                </p>
+              </div>
+              <div class="card-read-more">
+                <a
+                  href="{% url 'main:scholarship_details' scholarship.id %}"
+                  class="btn btn-link btn-block"
+                >
+                  Read More
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        {% if request.user.is_superuser%}
+        <a href="{% url 'main:add_scholarship' %}" class="btn btn-success">
+          Add Scholarships</a
+        >
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

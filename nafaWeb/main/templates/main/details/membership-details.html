@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto+Slab:400,700"/>
+    <link rel="stylesheet" href="{% static 'css/aboutCard.css' %}" />
+    <div class="row row-big-card">
+        <div class="cont">
+            <a href="#" class="card-link">
+                <div class="card-img">
+                    <div style=" background-image:  url('{{ membership.image }}') "></div>
+                </div>
+                <div class="card-inner">
+                    <h3>{{ membership.name }}</h3>
+                    
+                    <div class="inner-text">
+                        <p>
+                          <h4>{{membership.description}}</h4>
+                        </p>
+                        <h4>${{ membership.amount }}</h4>
+                    </div>
+                    <span class="cta-card">
+                        {% if user.membership %}
+                            You currently have {{ user.membership.name }}.
+                            <a href="{% url 'main:membership_home' %}">Browse other Membership</a>
+                        {% else %}
+                            <a href="{% url 'payments:checkout' membership.id %}">Buy Now  ${{ membership.amount }}</a>
+                        {% endif %}
+                    </span>
+                    <br />
+                    {% if request.user.is_superuser %}
+                        <span class="cta-card">
+                            <a href="{% url 'main:edit_membership' membership.id %}">Edit</a>
+                        </span>
+                        <span class="cta-card">
+                            <a href="{% url 'main:delete_membership' membership.id %}">Delete</a>
+                        </span>
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

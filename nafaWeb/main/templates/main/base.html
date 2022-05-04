@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      .fa {
+        padding: 20px;
+        font-size: 10px;
+        width: 35px;
+        height: 50px;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 5px;
+        border-radius: 80%;
+      }
+
+      .fa:hover {
+        opacity: 0.8;
+      }
+
+      .fa-facebook {
+        background: #3b5998;
+        color: white;
+      }
+
+      .fa-twitter {
+        background: #55acee;
+        color: white;
+      }
+
+      .fa-linkedin {
+        background: #007bb5;
+        color: white;
+      }
+
+      .fa-youtube {
+        background: #bb0000;
+        color: white;
+      }
+
+      .fa-instagram {
+        background: #125688;
+        color: white;
+      }
+    </style>
+    <title>Neville Alumni</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'main:home' %}">
+          {% load static %}
+          <img
+            src=" {% static 'css/nafa-logo.png' %}"
+            alt="logo"
+            style="width: 50px; height: 50px"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                class="nav-link {% if navbar == 'home' %} active {%endif%}"
+                aria-current="page"
+                href="{% url 'main:home' %}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if navbar == 'events' %} active {%endif%}"
+                href="{% url 'event:event_home' %}"
+                >Events</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if navbar == 'groups' %} active {%endif%}"
+                href="{% url 'group:all_groups' %}"
+                >Groups</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if navbar == 'scholarships' %} active {%endif%}"
+                href="{% url 'main:scholarship_home' %}"
+                >Scholarship</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if navbar == 'campaigns' %} active {%endif%}"
+                href="{% url 'main:campaign_home' %}"
+                >Campaign</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link {% if navbar == 'memberships' %} active {%endif%}"
+                href="{% url 'main:membership_home' %}"
+                >Membership</a
+              >
+            </li>
+          </ul>
+
+          <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                {{ request.user.username }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'accounts:user_profile' user.id%}"
+                    >Profile</a
+                  >
+                </li>
+                {%if request.user.is_superuser%}
+                <li><a class="dropdown-item" href="{% url 'admin:index' %}">Settings</a></li>
+                {% endif %}
+                {%if user.membership%}
+                <li><a class="dropdown-item" href="{% url 'main:membership_details' user.membership.id %}">My Subcribtions</a></li>
+                {%endif%}
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'accounts:logout_user' %}"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+            {% else %}
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'accounts:register_account' %}"
+                    >Register</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{% url 'accounts:login_user' %}"
+                    >Login</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something</a>
+                </li>
+              </ul>
+            </li>
+
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start bg-grey text-muted">
+      <!-- Section: Social media -->
+      <section
+        class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom bg-dark"
+      >
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+          <span>Get connected with us on social networks:</span>
+        </div>
+        <!-- Left -->
+
+        <!-- Right -->
+        {%load static%}
+        <div>
+          <!-- Add font awesome icons -->
+          <a
+            href="https://www.facebook.com/Neville-Alumni-and-Friends-Association-310455590523"
+            class="fa fa-facebook"
+            >f</a
+          >
+          <a href="#" class="fa fa-twitter"></a>
+          <a href="#" class="fa fa-linkedin"></a>
+          <a href="#" class="fa fa-youtube"></a>
+          <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <!-- Right -->
+      </section>
+      <!-- Section: Social media -->
+
+      <!-- Section: Links  -->
+      <section class="">
+        <div class="container text-center text-md-start mt-5">
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <!-- Content -->
+              <h6 class="text-uppercase fw-bold mb-4">
+                <i class="fas fa-gem me-3"></i>
+              </h6>
+              <a class="navbar-brand" href="{% url 'main:home' %}">
+                {% load static %}
+                <img
+                  src=" {% static 'css/nafa-logo.png' %}"
+                  alt="logo"
+                  style="width: 100px; height: 120px"
+                />
+              </a>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">Links</h6>
+              <p>
+                <a href="#!" class="text-reset">About</a>
+              </p>
+              <p>
+                <a href="{% url 'event:event_home' %}" class="text-reset"
+                  >Events</a
+                >
+              </p>
+              <p>
+                <a href="{% url 'main:scholarship_home' %}" class="text-reset"
+                  >Scholarship</a
+                >
+              </p>
+              <p>
+                <a href="{% url 'main:campaign_home' %}" class="text-reset"
+                  >Campaign</a
+                >
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+              <p>
+                <i class="fas fa-home me-3"></i>600 Forsythe Ave. Monroe, LA,
+                71201
+              </p>
+              <p>
+                <!-- <i class="fas fa-envelope me-3"></i>
+                info@example.com -->
+              </p>
+              <p><i class="fas fa-phone me-3"></i>+ 01 318 387 5700</p>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+      </section>
+      <!-- Section: Links  -->
+
+      <!-- Copyright -->
+      <div
+        class="text-center p-4"
+        style="background-color: rgba(0, 0, 0, 0.05)"
+      >
+        © {% now "Y" %} Copyright:
+        <a class="text-reset fw-bold" href="https://www.nevillealumni.org/"
+          >nevillealumni.org</a
+        >
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

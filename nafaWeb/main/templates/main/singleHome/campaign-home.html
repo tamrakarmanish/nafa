@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %} {% block content %}
+
+<h1>Campaign</h1>
+{% for campaign in campaigns %}
+<a href="{% url 'main:campaign_details' campaign.id %}"> {{campaign.name}} </a>
+<br />
+{% endfor %}
+{% if request.user.is_superuser%}
+  <a href="{% url 'main:add_campaign' %}" class="btn btn-success ">
+    Add Campaign</a
+  >
+{%endif%}
+<br />
+
+{% endblock %}

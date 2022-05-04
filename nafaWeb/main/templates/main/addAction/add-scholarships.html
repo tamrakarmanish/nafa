@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<div class="container">
+  <form action="" method="post">
+    {% csrf_token %} {{form|crispy}}
+    <br />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <input
+      type="submit"
+      class="btn orangeBtn btn-danger"
+      value="{{ label }} scholarship"
+    />
+  </form>
+</div>
+
+{% endblock %}

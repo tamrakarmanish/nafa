@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %} {% block content %} {% load static%}
+<link rel="stylesheet" href="{% static 'css/scholarshipabout.css' %}" />
+
+<div class="big-card container">
+  <section id="main-content" class="text-center">
+    <h1 style="color: gold" id="title">{{scholarship.name}}</h1>
+
+    <div id="img-div">
+      <img
+        src="{{scholarship.image}}"
+        alt="A Photo of Swamy Vivekananda"
+        id="image"
+        class="text-center"
+      />
+      <p id="tribute-info">{{scholarship.description}}</p>
+      <a
+        href="{% url 'main:scholarship_details' scholarship.id %}"
+        class="btn btn-primary"
+        style="margin: 50px"
+      >
+        Apply</a
+      >
+    </div>
+  </section>
+</div>
+
+{% endblock %}

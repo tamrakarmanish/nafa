@@ -1,0 +1,52 @@
+{% extends 'main/base.html' %} {% block content %} {% load static%}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto+Slab:400,700"
+/>
+
+<link rel="stylesheet" href="{% static 'css/aboutCard.css' %}" />
+
+<div class="row row-big-card">
+  <div class="cont">
+    <a href="#" class="card-link">
+      <div class="card-img">
+        <div
+          style="
+            background-image:  url('{{team.image}}') "
+        ></div>
+      </div>
+      <div class="card-inner">
+        <h3>{{team.name}}</h3>
+        <h4>There's something magical about those golden hues</h4>
+        <div class="inner-text">
+          <p>
+            {{team.description}}
+          </p>
+        </div>
+        
+        <span class="cta-card">
+           <a href="">
+          </a> 
+        </span>
+        <br/>
+        {% if request.user.is_superuser%}
+          <span class="cta-card">
+            <a href="{% url 'main:edit_team' team.id %}">
+              Edit
+            </a>
+          </span>
+          <span class="cta-card">
+            <a href="{% url 'main:delete_team' team.id %}">
+              Delete
+            </a>
+          </span>
+        {%endif%}
+        <br/>
+        
+      </div>
+    </a>
+  </div>
+</div>
+
+
+{% endblock %}

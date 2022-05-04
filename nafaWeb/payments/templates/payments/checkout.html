@@ -1,0 +1,121 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static%}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto+Slab:400,700"
+/>
+
+<link rel="stylesheet" href="{% static 'css/aboutCard.css' %}" />
+
+<div class="row row-big-card">
+  <div class="cont">
+    <a href="#" class="card-link">
+      <div class="card-img">
+        <div
+          style="
+            background-image:  url('{{membership.image}}') "
+        ></div>
+      </div>
+      <div class="card-inner">
+        <h4>{{membership.name}}</h4>
+        <div class="inner-text">
+          <p>
+            {{membership.description}}
+          </p>
+        </div>
+        
+        <span class="cta-card">
+           <a href="">
+                ${{membership.amount}}
+          </a> 
+          <h5> Select your payment type below.</h5>
+          <h6>
+            <!-- Set up a container element for the button -->
+            <div id="paypal-button-container"></div>
+            <!-- Include the PayPal JavaScript SDK -->
+            {% load static %}
+            <script src="https://www.paypal.com/sdk/js?client-id=ATwzTE-yXS9rj90_aFPYAy4qKE1iTeCaoIvsX6TkRnVuxVs1s6hSqbriPq5aQSUyRiIjM8lihG9W9Bi2&currency=USD"></script>
+            <script>
+        
+          function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+              const cookies = document.cookie.split(";");
+              for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === name + "=") {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+                }
+              }
+            }
+            return cookieValue;
+          }
+          var csrftoken = getCookie('csrftoken');
+        
+          var subtotal = "{{membership.amount}}";
+          var tax = 1.1;
+        
+          function completeOrder() {
+            var url = "{% url 'payments:complete' %}";
+            var membershipId = "{{membership.id}}";
+            var userId = "{{user.id}}";
+            fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+                "X-CSRFToken": csrftoken,
+              },
+              body: JSON.stringify({ 'membershipId': membershipId }),
+            });
+          }
+        
+          // Render the PayPal button into #paypal-button-container
+          paypal.Buttons({
+            
+              // Set up the transaction
+              createOrder: function (data, actions) {
+                return actions.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: subtotal*tax,
+                      },
+                    },
+                  ],
+                });
+              },
+        
+              // Finalize the transaction
+              onApprove: function (data, actions) {
+                return actions.order.capture().then(function (orderData) {
+                  // Successful capture! For demo purposes:
+                  console.log(
+                    "Capture result",
+                    orderData,
+                    JSON.stringify(orderData, null, 2)
+                  );
+                  var transaction = orderData.purchase_units[0].payments.captures[0];
+                  completeOrder();
+                  alert(
+                    "Transaction " +
+                      transaction.status +
+                      ": " +
+                      transaction.id +
+                      "\n\nSee console for all available details"
+                  );
+                });
+              },
+            })
+            .render("#paypal-button-container");
+            </script></h6>
+        </span>
+        <br/>
+        <br/>
+      </div>
+    </a>
+  </div>
+</div>
+    {% endblock %}

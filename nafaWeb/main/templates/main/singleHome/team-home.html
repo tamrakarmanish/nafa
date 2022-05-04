@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" href="{% static 'css/team.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+/>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3 mt-4 mb-4">
+      <h2 class="text-center">Our Expert Team</h2>
+      <p class="text-center">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for team in teams %}
+    <div class="col-md-4">
+      <div class="card-box text-center">
+        <div class="team-pic">
+          <img src="{{team.image}}" class="img-fluid" alt="Team Pic" />
+        </div>
+        <h4>{{team.name}}</h4>
+        <hr />
+        <p>
+          {{team.description}}
+        </p>
+        <hr />
+        <a href="{% url 'main:team_details' team.id %}" class="btn btn-primary">Know More</a>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+
+{% if request.user.is_superuser%}
+  <a href="{% url 'main:add_team' %}" class="btn btn-success ">
+    Add Team</a
+  >
+{%endif%}
+
+{% endblock %}

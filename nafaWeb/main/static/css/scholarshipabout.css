@@ -1,0 +1,67 @@
+/* Css reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  margin: 1rem;
+  text-indent: 40px;
+  font-weight: 600;
+  color: gold;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  margin: auto;
+  padding: 0 1rem;
+  overflow: auto;
+  max-width: 1100px;
+}
+
+#image {
+  max-width: 100%;
+  display: block;
+  height: auto;
+  margin: 10px auto;
+  border-radius: 100px;
+}
+
+.big-card {
+  max-width: 80%;
+  height: auto;
+  border-radius: 10px;
+  background: hsl(0, 0%, 0%);
+  box-shadow: 1px 1px 2.5px 2.5px #888;
+  transform: scale(0.9);
+  transition: transform 1s ease 0.5s;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.big-card:hover {
+  transform: scale(0.75);
+}
+
+#main-content {
+  margin-top: 2rem;
+}
+
+#main-content #title {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#main-content #small-desc,
+#main-content #img-div #img-caption,
+#main-content #img-div p {
+  font-size: 1.2rem;
+}

@@ -1,0 +1,27 @@
+{% extends 'forms/base.html' %}
+
+{% block title %}
+Bulk Register
+{% endblock %}
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'login.css' %}">
+<div class='page-wrapper'>
+  <div class="headline">Register Users In Bulk</div>
+<div class="form-div container">
+            <h3 class="text-center">Upload CSV file to register user</h3>
+            <form action="{% url 'accounts:bulk_register'  %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="csv_file">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>
+                  <br><br>  
+                  <input type="submit" class="btn btn-danger" value="Upload">
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

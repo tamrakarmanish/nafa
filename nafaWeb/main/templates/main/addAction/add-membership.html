@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %} {% load crispy_forms_tags %}
+{% block content %}
+
+<form action="" method="post">{% csrf_token %} {{form|crispy}}
+    <br />
+    {{ form.as_table }}
+    <input type="submit" class="btn btn-danger" value="{{ label }} Membership">
+
+</form>
+
+
+{% endblock %}
